@@ -9,7 +9,7 @@ module.exports = {
     description: 'on startup | expired punishments',
     on: true,
     async execute (client){
-        console.log('MidNight Bot online!');
+        console.log('SNSY Bot online!');
 
         await mongoose.connect(mongoPath, {
             keepAlive: true
@@ -19,7 +19,7 @@ module.exports = {
             console.log(err);
         });
         
-        client.user.setActivity('over woderful communities', { type: 'WATCHING'});
+        client.user.setActivity('over wonderful communities', { type: 'WATCHING'});
         client.user.setStatus('online');
 
         // CHECK FOR EXPIRED PUNISHMENTS
