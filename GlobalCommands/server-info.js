@@ -41,6 +41,6 @@ module.exports = {
             `- Boosts: ${guild.premiumSubscriptionCount}`
         )
         .setFooter(`${process.env.VERSION} • ${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
-        interaction.followUp({embeds: [mesaj]});
+        await interaction.reply({embeds: [mesaj]});
     }
 }

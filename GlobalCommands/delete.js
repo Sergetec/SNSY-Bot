@@ -14,10 +14,12 @@ module.exports = {
         },
     ],
     async execute (client, interaction){
+        const guildId = interaction.guild.id
         if (interaction.member.permissions.has('ADMINISTRATOR')){
             const id = interaction.options.getString('id');
             //ARCHIVE SCHEMA
             const query = {
+                guildID: guildId,
                 _id: id,
             }
             const result = await archiveSchema.findOne(query)
@@ -26,9 +28,9 @@ module.exports = {
             //PUNISHMENT SCHEMA
             const result2 = await punishmentSchema.findOne(query)
             await punishmentSchema.deleteMany(query)
-            interaction.followUp(`${interaction.options.getString('id')} ID removed`);
+            await interaction.reply(`${interaction.options.getString('id')} ID removed`);
             return;
         }
-        interaction.followUp({ content: '**❌ You are not authorized to use this**' });
+        await interaction.reply({ content: '**❌ You are not authorized to use this**' });
     }
 }

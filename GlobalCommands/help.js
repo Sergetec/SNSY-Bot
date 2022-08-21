@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'help',
     description: 'displays help about the commands of the bot',
-    execute(client, interaction){
+    async execute(client, interaction){
         var mesaj = new MessageEmbed()
         .setColor('BLURPLE')
         .setTitle('ℹ️ HELP')
@@ -57,6 +57,6 @@ module.exports = {
             `Generates new unban ticket`
         )
         .setFooter(`${process.env.VERSION} • ${new Date(interaction.createdTimestamp).toLocaleDateString()} • © Sergetec`)
-        interaction.followUp({ embeds: [mesaj] });
+        await interaction.reply({ embeds: [mesaj] });
     }
 };
