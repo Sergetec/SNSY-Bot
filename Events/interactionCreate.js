@@ -35,6 +35,7 @@ module.exports = {
             }
             const staff = result.staffRole.split(' ')
             if (interaction.customId === "open-ticket"){
+                await interaction.deferUpdate()
 
                 let user = interaction.member.id;
                 let nameOfChannel = "unban-" + user;
@@ -59,24 +60,26 @@ module.exports = {
                                VIEW_CHANNEL: true,
                                SEND_MESSAGES: true,
                                READ_MESSAGE_HISTORY: true,
+                               MANAGE_MESSAGES: false,
                         });
                     }
                     var row = new MessageActionRow()
                     .addComponents(new MessageButton()
                     .setCustomId("close-ticket")
-                    .setLabel("Inchide ticketul")
+                    .setLabel("Close the ticket")
                     .setStyle("DANGER")
                     );
                     const mesaj = new MessageEmbed()
                     .setTitle('Ticket')
-                    .setDescription('Un membru staff iti va prelua cererea imediat ce va fi notificat.')
+                    .setDescription('A staff member will take over your ticket as soon as notified.')
                     .setColor('RED')
-                    await channel.send({content: `<@${user}> Aici este ticketul tau`, embeds: [mesaj], components: [row]});
-                    await client.channels.cache.get(canalStaffNotif).send(`<@&${staff}> membrul <@${user}> a deschis cererea de unban <#${channel.id}>`)
+                    await channel.send({content: `<@${user}> Here is your unban ticket`, embeds: [mesaj], components: [row]});
+                    await client.channels.cache.get(canalStaffNotif).send(`<@&${staff}> user <@${user}> opened the unban ticket <#${channel.id}>`)
                 });
             }
             else if (interaction.customId === "close-ticket" && interaction.member.roles.cache.has(staff[0])){
-                interaction.channel.delete();
+                await interaction.deferUpdate()
+                await interaction.channel.delete();
             }
         }
 
@@ -85,9 +88,8 @@ module.exports = {
         SLASH COMMANDS - HANDLER
 
         */
-        if (interaction.isCommand())
-        {
-            await interaction.deferReply({ ephemeral: false }).catch(() => {});
+        if (interaction.isCommand()){
+            // await interaction.deferReply({ ephemeral: false }).catch(() => {});
 
             const command = client.commands.get(interaction.commandName)
             if (!command){

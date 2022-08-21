@@ -22,31 +22,31 @@ module.exports = {
                 .setStyle("PRIMARY")
             );
             const mesaj = new MessageEmbed()
-                    .setTitle('Cerere unban')
-                    .setDescription('Daca vezi asta inseamna ca esti banat.\nPentru a face o cerere de unban, te rugam sa apesi pe butonul de mai jos.')
+                    .setTitle('Unban ticket')
+                    .setDescription('If you see this it means you are banned.\nTo open an unban ticket, please click on the button below.')
                     .setColor('RED')
                     .setFooter(`${process.env.VERSION}`)
                     
-                    const guildId = interaction.guild.id
-                    let schema = await guildCommandsSchema.findOne({
-                        guildID: guildId,
-                    })
-                    if (!schema.bannedChannel){
-                        return interaction.followUp('**❌ You have not set up the banned channel. Please use `/set banned-channel`**')
-                    }
-                    const channel = schema.bannedChannel
+            const guildId = interaction.guild.id
+            let schema = await guildCommandsSchema.findOne({
+                guildID: guildId,
+            })
+            if (!schema.bannedChannel){
+                return await interaction.reply('**❌ You have not set up the banned channel. Please use `/set banned-channel`**')
+            }
+            const channel = schema.bannedChannel
 
-                    if (!schema.bannedCategory){
-                        return interaction.followUp('**❌ You have not set up the banned category. Please use `/set banned-category`**')
-                    }
-                    
-                    if (!schema.staffRole){
-                        return interaction.followUp('**❌ You have not set up the staff role. Please use `/set staff-role`**')
-                    }
+            if (!schema.bannedCategory){
+                return await interaction.reply('**❌ You have not set up the banned category. Please use `/set banned-category`**')
+            }
+            
+            if (!schema.staffRole){
+                return await interaction.reply('**❌ You have not set up the staff role. Please use `/set staff-role`**')
+            }
 
             client.channels.cache.get(channel).send({ embeds: [mesaj], components: [row] });
-            return interaction.followUp({ content: '✅ Generated'} );
+            return await interaction.reply({ content: '✅ Generated'} );
         }
-        return interaction.followUp({ content: '**❌ You are not authorized to use this**' });
+        return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
     }
 }

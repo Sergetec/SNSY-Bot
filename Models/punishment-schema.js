@@ -8,6 +8,7 @@ const reqString = {
 
 const schema = new Schema(
     {
+        guildID: reqString,
         userID: reqString,
         staffID: reqString,
         reason: reqString,

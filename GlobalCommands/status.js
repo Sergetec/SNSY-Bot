@@ -11,9 +11,9 @@ module.exports = {
             const mesaj = new MessageEmbed()
             .setColor('RED')
             .setDescription(`**CLIENT**: \`🟢 ONLINE\`\n**PING**: \`${ping}\`\n**UPTIME**: <t:${Math.floor(parseInt(client.readyAt / 1000))}:R>\n\n**DATABASE**: \`${switchTo(connection.readyState)}\``)
-            return interaction.followUp({ embeds: [mesaj] })
+            return await interaction.reply({ embeds: [mesaj] })
         }
-        return interaction.followUp({ content: '**❌ You are not authorized to use this**' });
+        return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
     }
 }
 
