@@ -98,167 +98,172 @@ module.exports = {
         },
     ],
     async execute(client, interaction){
-        if (interaction.member.permissions.has('ADMINISTRATOR')){
-            const guildID = interaction.guild.id;
-            let schema
-            const subCommand = interaction.options.getSubcommand()
-            var roles = interaction.options.getString('roles')
-            var rolesName = roles;
-            roles = roles.replaceAll('<', '');
-            roles = roles.replaceAll('@', '');
-            roles = roles.replaceAll('&', '');
-            roles = roles.replaceAll('>', '');
-            switch (subCommand){
-                case 'soft-ban':
-                    await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
+        try{
+            if (interaction.member.permissions.has('ADMINISTRATOR')){
+                const guildID = interaction.guild.id;
+                let schema
+                const subCommand = interaction.options.getSubcommand()
+                var roles = interaction.options.getString('roles')
+                var rolesName = roles;
+                roles = roles.replaceAll('<', '');
+                roles = roles.replaceAll('@', '');
+                roles = roles.replaceAll('&', '');
+                roles = roles.replaceAll('>', '');
+                switch (subCommand){
+                    case 'soft-ban':
+                        await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
 
-                    //Check for the same guild -> update
-                    schema = await guildCommandsSchema.findOne({
-                        guildID: guildID,
-                    })
-                    if (schema){
-                        schema.rolesBan = roles
-                        await schema.save();
-                    }
-                    else{
-                        //DATABASE
-                        schema = await guildCommandsSchema.create({
+                        //Check for the same guild -> update
+                        schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
-                            rolesBan: roles,
                         })
-                        await schema.save();
-                    }
+                        if (schema){
+                            schema.rolesBan = roles
+                            await schema.save();
+                        }
+                        else{
+                            //DATABASE
+                            schema = await guildCommandsSchema.create({
+                                guildID: guildID,
+                                rolesBan: roles,
+                            })
+                            await schema.save();
+                        }
 
-                    break;
-                case 'soft-unban':
-                    await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
+                        break;
+                    case 'soft-unban':
+                        await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
 
-                    //Check for the same guild -> update
-                    schema = await guildCommandsSchema.findOne({
-                        guildID: guildID,
-                    })
-                    if (schema){
-                        schema.rolesUnban = roles
-                        await schema.save();
-                    }
-                    else{
-                        //DATABASE
-                        schema = await guildCommandsSchema.create({
+                        //Check for the same guild -> update
+                        schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
-                            rolesUnban: roles,
                         })
-                        await schema.save();
-                    }
+                        if (schema){
+                            schema.rolesUnban = roles
+                            await schema.save();
+                        }
+                        else{
+                            //DATABASE
+                            schema = await guildCommandsSchema.create({
+                                guildID: guildID,
+                                rolesUnban: roles,
+                            })
+                            await schema.save();
+                        }
 
-                    break;
-                case 'mute':
-                    await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
+                        break;
+                    case 'mute':
+                        await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
 
-                    //Check for the same guild -> update
-                    schema = await guildCommandsSchema.findOne({
-                        guildID: guildID,
-                    })
-                    if (schema){
-                        schema.rolesMute = roles
-                        await schema.save();
-                    }
-                    else{
-                        //DATABASE
-                        schema = await guildCommandsSchema.create({
+                        //Check for the same guild -> update
+                        schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
-                            rolesMute: roles,
                         })
-                        await schema.save();
-                    }
+                        if (schema){
+                            schema.rolesMute = roles
+                            await schema.save();
+                        }
+                        else{
+                            //DATABASE
+                            schema = await guildCommandsSchema.create({
+                                guildID: guildID,
+                                rolesMute: roles,
+                            })
+                            await schema.save();
+                        }
 
-                    break;
-                case 'unmute':
-                    await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
-                    
-                    //Check for the same guild -> update
-                    schema = await guildCommandsSchema.findOne({
-                        guildID: guildID,
-                    })
-                    if (schema){
-                        schema.rolesUnmute = roles
-                        await schema.save();
-                    }
-                    else{
-                        //DATABASE
-                        schema = await guildCommandsSchema.create({
+                        break;
+                    case 'unmute':
+                        await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
+                        
+                        //Check for the same guild -> update
+                        schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
-                            rolesUnmute: roles,
                         })
-                        await schema.save();
-                    }
+                        if (schema){
+                            schema.rolesUnmute = roles
+                            await schema.save();
+                        }
+                        else{
+                            //DATABASE
+                            schema = await guildCommandsSchema.create({
+                                guildID: guildID,
+                                rolesUnmute: roles,
+                            })
+                            await schema.save();
+                        }
 
-                    break;
-                case 'kick':
-                    await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
-                    
-                    //Check for the same guild -> update
-                    schema = await guildCommandsSchema.findOne({
-                        guildID: guildID,
-                    })
-                    if (schema){
-                        schema.rolesKick = roles
-                        await schema.save();
-                    }
-                    else{
-                        //DATABASE
-                        schema = await guildCommandsSchema.create({
+                        break;
+                    case 'kick':
+                        await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
+                        
+                        //Check for the same guild -> update
+                        schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
-                            rolesKick: roles,
                         })
-                        await schema.save();
-                    }
+                        if (schema){
+                            schema.rolesKick = roles
+                            await schema.save();
+                        }
+                        else{
+                            //DATABASE
+                            schema = await guildCommandsSchema.create({
+                                guildID: guildID,
+                                rolesKick: roles,
+                            })
+                            await schema.save();
+                        }
 
-                    break;
-                case 'hist':
-                    await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
-                    
-                    //Check for the same guild -> update
-                    schema = await guildCommandsSchema.findOne({
-                        guildID: guildID,
-                    })
-                    if (schema){
-                        schema.rolesHist = roles
-                        await schema.save();
-                    }
-                    else{
-                        //DATABASE
-                        schema = await guildCommandsSchema.create({
+                        break;
+                    case 'hist':
+                        await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
+                        
+                        //Check for the same guild -> update
+                        schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
-                            rolesHist: roles,
                         })
-                        await schema.save();
-                    }
-                    
-                    break;
-                case 'purge':
-                    await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
-                    
-                    //Check for the same guild -> update
-                    schema = await guildCommandsSchema.findOne({
-                        guildID: guildID,
-                    })
-                    if (schema){
-                        schema.rolesPurge = roles
-                        await schema.save();
-                    }
-                    else{
-                        //DATABASE
-                        schema = await guildCommandsSchema.create({
+                        if (schema){
+                            schema.rolesHist = roles
+                            await schema.save();
+                        }
+                        else{
+                            //DATABASE
+                            schema = await guildCommandsSchema.create({
+                                guildID: guildID,
+                                rolesHist: roles,
+                            })
+                            await schema.save();
+                        }
+                        
+                        break;
+                    case 'purge':
+                        await interaction.reply(`✅ Roles: ${rolesName} have been authorized for ${subCommand}.`)
+                        
+                        //Check for the same guild -> update
+                        schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
-                            rolesPurge: roles,
                         })
-                        await schema.save();
-                    }
-                    
-                    break;
+                        if (schema){
+                            schema.rolesPurge = roles
+                            await schema.save();
+                        }
+                        else{
+                            //DATABASE
+                            schema = await guildCommandsSchema.create({
+                                guildID: guildID,
+                                rolesPurge: roles,
+                            })
+                            await schema.save();
+                        }
+                        
+                        break;
+                }
+                return;
             }
-            return;
+            await interaction.reply({ content: '**❌ You are not authorized to use this**' });
+        } catch(err){
+            await interaction.reply({ content: '**❌ Oops something went wrong... please contact me: Sergetec#6803 🤔**' })
+            console.log(err)
         }
-        return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
     }
 }

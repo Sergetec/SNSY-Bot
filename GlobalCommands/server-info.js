@@ -8,8 +8,8 @@ module.exports = {
         const { guild } = interaction;
         const mesaj = new MessageEmbed()
         .setColor("RED")
-        .setAuthor(guild.name, guild.iconURL({dynamic: true}))
-        .setThumbnail(guild.iconURL({dynamic: true}))
+        .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
+        .setThumbnail(guild.iconURL({ dynamic: true }))
         .addField(
             'ℹ️ | GENERAL',
             `Name: ${guild.name}
