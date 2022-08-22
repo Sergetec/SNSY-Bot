@@ -85,6 +85,18 @@ module.exports = {
             newMutedRole = newMutedRole.replaceAll('>', '');
             schema.mutedRole = newMutedRole
             await schema.save()
+
+            guild.channels.cache.forEach(channel => {
+                if (channel.type === 'GUILD_TEXT'){
+                    try{
+                        channel.permissionOverwrites.create(role, {
+                            SEND_MESSAGES: false,
+                        })
+                    } catch(err){
+                        console.log(err)
+                    }
+                }
+            })
         })
     
         await guild.roles.create({

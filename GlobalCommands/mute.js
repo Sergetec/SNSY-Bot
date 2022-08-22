@@ -43,7 +43,7 @@ module.exports = {
             if (interaction.member.roles.cache.some(r => roles.includes(r.id))){
                 ok = true;
             }
-            if (ok == true){
+            if (ok == true || interaction.member.permissions.has('ADMINISTRATOR')){
                 const user = interaction.options.getUser('user'); //FOLOSIT DOAR LA MEMBERTARGET
                 const mutedMember = interaction.options.getUser('user'); //FOLOSIT DOAR LA NICKNAME
                 if (user){

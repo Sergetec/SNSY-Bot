@@ -33,7 +33,7 @@ module.exports = {
             if (interaction.member.roles.cache.some(r => roles.includes(r.id))){
                 ok = true;
             }    
-            if (ok == true){
+            if (ok == true || interaction.member.permissions.has('ADMINISTRATOR')){
                     var amount = parseInt(interaction.options.getString('amount'));
                     if (amount > 100){
                         amount = 100;

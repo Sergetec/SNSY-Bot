@@ -47,6 +47,6 @@ module.exports = {
             client.channels.cache.get(channel).send({ embeds: [mesaj], components: [row] });
             return await interaction.reply({ content: '✅ Generated'} );
         }
-        return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
+        await interaction.reply({ content: '**❌ You are not authorized to use this**' });
     }
 }
