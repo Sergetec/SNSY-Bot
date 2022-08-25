@@ -7,13 +7,25 @@ module.exports = {
     description: 'when someone joins the server',
     on: true,
     async execute(member, client, interaction){
+
+        let Guilds = client.guilds.cache.map(guild => guild.id)
+        let number = 0
+        for (let guild of Guilds) {
+            guild = client.guilds.cache.get(guild)
+            number += guild.memberCount
+        }
+        client.user.setActivity({
+            name: `${number} users`,
+            type: "WATCHING"
+        })
+
         const guildId = member.guild.id;
         const results = await punishmentSchema.find({
             userID: member.id,
             guildID: guildId,
         })
-        if (results.length == 0){
-            if (guildId == '999749692239904929'){
+        if (results.length === 0){
+            if (guildId === '999749692239904929'){
                 const mesaj = new MessageEmbed()
                 .setColor("RED")
                 .setAuthor(member.displayName, member.displayAvatarURL({ dynamic: true, size: 128 }))
@@ -24,7 +36,7 @@ module.exports = {
                 let channel = '999749693762437187'
                 await client.channels.cache.get(channel).send({ content: `<@${member.id}>`, embeds: [mesaj] });
             }
-            if (guildId == '1011213883358326897'){
+            if (guildId === '1011213883358326897'){
                 const mesaj = new MessageEmbed()
                 .setColor("RED")
                 .setAuthor(member.displayName, member.displayAvatarURL({ dynamic: true, size: 128 }))
@@ -38,7 +50,7 @@ module.exports = {
             return;
         }
         for (const result of results){
-            if (result.type == 'ban'){
+            if (result.type === 'ban'){
     
                 const result2 = await guildCommandsSchema.findOne({
                     guildID: guildId
@@ -50,7 +62,7 @@ module.exports = {
     
                 member.roles.add(banRole);
             }
-            if (result.type == 'mute'){
+            if (result.type === 'mute'){
                 const result3 = await guildCommandsSchema.findOne({
                     guildID: guildId
                 })

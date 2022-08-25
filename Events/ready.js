@@ -20,7 +20,7 @@ module.exports = {
             console.log(err);
         });
         let Guilds = client.guilds.cache.map(guild => guild.id)
-        var number = 0
+        let number = 0
         for (let guild of Guilds){
             guild = client.guilds.cache.get(guild)
             number += guild.memberCount
@@ -53,7 +53,7 @@ module.exports = {
                             reason: 'Mute expired',
                             type: 'unmute',
                         })
-                        arhiva.save();
+                        await arhiva.save();
 
                         await punishmentSchema.deleteMany(query)
 
@@ -104,55 +104,55 @@ module.exports = {
                             memberTarget.roles.remove(muteRole)
 
                             //ARHIVA
-                        let arhiva = await archiveSchema.create({
-                            guildID: guild,
-                            userID: result.userID,
-                            staffID: clientID,
-                            reason: 'Mute expired',
-                            type: 'unmute',
-                        })
-                        arhiva.save();
+                            let arhiva = await archiveSchema.create({
+                                guildID: guild,
+                                userID: result.userID,
+                                staffID: clientID,
+                                reason: 'Mute expired',
+                                type: 'unmute',
+                            })
+                            await arhiva.save();
 
-                        await punishmentSchema.deleteMany(query)
+                            await punishmentSchema.deleteMany(query)
 
-                        const mesaj = new MessageEmbed()
-                        .setTitle('UNMUTE')
-                        .setColor('GREEN')
-                        .setFooter(`${process.env.VERSION}`)
-                        .addField(
-                            'ID',
-                            `${memberTarget.id}`,
-                            true
-                        )
-                        .addField(
-                            'Mention',
-                            `<@${memberTarget.id}>`,
-                            true
-                        )
-                        .addField(
-                            'Unmuted by',
-                            'SNSY Bot',
-                            true
-                        )
-                        .addField(
-                            'Reason',
-                            'Mute expired',
-                            true
-                        )
-                        await client.channels.cache.get(channel).send({ embeds: [mesaj] })
+                            const mesaj = new MessageEmbed()
+                                .setTitle('UNMUTE')
+                                .setColor('GREEN')
+                                .setFooter(`${process.env.VERSION}`)
+                                .addField(
+                                    'ID',
+                                    `${memberTarget.id}`,
+                                    true
+                                )
+                                .addField(
+                                    'Mention',
+                                    `<@${memberTarget.id}>`,
+                                    true
+                                )
+                                .addField(
+                                    'Unmuted by',
+                                    'SNSY Bot',
+                                    true
+                                )
+                                .addField(
+                                    'Reason',
+                                    'Mute expired',
+                                    true
+                                )
+                            await client.channels.cache.get(channel).send({ embeds: [mesaj] })
                         }
                     }
 
+
+
                 setTimeout(check, 1000 * 60)
             }
-            check()
+            await check()
         }
-        setInterval(() => {
-            client.user.setActivity({
-                name: `${number} users`, 
-                type: "WATCHING"
-            })
-          }, 1000 * 60);
+        client.user.setActivity({
+            name: `${number} users`,
+            type: "WATCHING"
+        })
         client.user.setStatus('online');
     }
 }
