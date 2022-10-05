@@ -1,10 +1,16 @@
 const { Client, CommandInteraction } = require('discord.js')
 const guildCommandsSchema = require('../Models/guildCommands-schema')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = {
     name: 'perms',
     description: 'Setup roles permissions.',
     options: [
+        {
+            name: 'list',
+            type: 'SUB_COMMAND',
+            description: 'Shows the roles that have access to a specific command',
+        },
         {
             name: 'soft-ban',
             type: 'SUB_COMMAND',
@@ -103,8 +109,103 @@ module.exports = {
                 const guildID = interaction.guild.id;
                 let schema
                 const subCommand = interaction.options.getSubcommand()
-                var roles = interaction.options.getString('roles')
-                var rolesName = roles;
+                if (subCommand === 'list') {
+                    let rolesSoftBan = 'not set', rolesSoftUnban = 'not set', rolesMute = 'not set', rolesUnmute = 'not set', rolesKick = 'not set', rolesHist = 'not set', rolesPurge = 'not set'
+                    schema = await guildCommandsSchema.findOne({
+                        guildID: guildID,
+                    })
+                    if (schema.rolesBan) {
+                        rolesSoftBan = schema.rolesBan.split(' ')
+                        for (let i = 0; i < rolesSoftBan.length; ++i) {
+                            let role = interaction.guild.roles.cache.find(r => r.id === rolesSoftBan[i])
+                            rolesSoftBan[i] = " " + role.name
+                        }
+                    }
+
+                    if (schema.rolesUnban) {
+                        rolesSoftUnban = schema.rolesUnban.split(' ')
+                        for (let i = 0; i < rolesSoftUnban.length; ++i) {
+                            let role = interaction.guild.roles.cache.find(r => r.id === rolesSoftUnban[i])
+                            rolesSoftUnban[i] = " " + role.name
+                        }
+                    }
+
+                    if (schema.rolesMute) {
+                        rolesMute = schema.rolesMute.split(' ')
+                        for (let i = 0; i < rolesMute.length; ++i) {
+                            let role = interaction.guild.roles.cache.find(r => r.id === rolesMute[i])
+                            rolesMute[i] = " " + role.name
+                        }
+                    }
+
+                    if (schema.rolesUnmute) {
+                        rolesUnmute = schema.rolesUnmute.split(' ')
+                        for (let i = 0; i < rolesUnmute.length; ++i) {
+                            let role = interaction.guild.roles.cache.find(r => r.id === rolesUnmute[i])
+                            rolesUnmute[i] = " " + role.name
+                        }
+                    }
+
+                    if (schema.rolesKick) {
+                        rolesKick = schema.rolesKick.split(' ')
+                        for (let i = 0; i < rolesKick.length; ++i) {
+                            let role = interaction.guild.roles.cache.find(r => r.id === rolesKick[i])
+                            rolesKick[i] = " " + role.name
+                        }
+                    }
+
+                    if (schema.rolesHist) {
+                        rolesHist = schema.rolesHist.split(' ')
+                        for (let i = 0; i < rolesHist.length; ++i) {
+                            let role = interaction.guild.roles.cache.find(r => r.id === rolesHist[i])
+                            rolesHist[i] = " " + role.name
+                        }
+                    }
+
+                    if (schema.rolesPurge) {
+                        rolesPurge = schema.rolesPurge.split(' ')
+                        for (let i = 0; i < rolesPurge.length; ++i) {
+                            let role = interaction.guild.roles.cache.find(r => r.id === rolesPurge[i])
+                            rolesPurge[i] = " " + role.name
+                        }
+                    }
+
+                    const message = new MessageEmbed()
+                        .setTitle(`Perms list for ${interaction.guild.name}`)
+                        .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+                        .setColor('BLUE')
+                        .addFields({
+                            name: 'Soft-ban:',
+                            value: `${rolesSoftBan}`,
+                        })
+                        .addFields({
+                            name: 'Soft-unban:',
+                            value: `${rolesSoftUnban}`,
+                        })
+                        .addFields({
+                            name: 'Mute:',
+                            value: `${rolesMute}`,
+                        })
+                        .addFields({
+                            name: 'Unmute:',
+                            value: `${rolesUnmute}`,
+                        })
+                        .addFields({
+                            name: 'Kick:',
+                            value: `${rolesKick}`,
+                        })
+                        .addFields({
+                            name: 'Hist:',
+                            value: `${rolesHist}`,
+                        })
+                        .addFields({
+                            name: 'Purge:',
+                            value: `${rolesPurge}`,
+                        })
+                    return await interaction.reply({ embeds: [message] })
+                }
+                let roles = interaction.options.getString('roles');
+                const rolesName = roles;
                 roles = roles.replaceAll('<', '');
                 roles = roles.replaceAll('@', '');
                 roles = roles.replaceAll('&', '');
