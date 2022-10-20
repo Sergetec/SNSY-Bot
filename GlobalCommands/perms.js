@@ -104,8 +104,8 @@ module.exports = {
         },
     ],
     async execute(client, interaction){
-        try{
-            if (interaction.member.permissions.has('ADMINISTRATOR')){
+        try {
+            if (interaction.member.permissions.has('ADMINISTRATOR')) {
                 const guildID = interaction.guild.id;
                 let schema
                 const subCommand = interaction.options.getSubcommand()
@@ -362,7 +362,7 @@ module.exports = {
                 return;
             }
             await interaction.reply({ content: '**❌ You are not authorized to use this**' });
-        } catch(err){
+        } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... please contact me: Sergetec#6803 🤔**' })
             console.log(err)
         }

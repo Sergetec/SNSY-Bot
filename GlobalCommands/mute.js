@@ -28,29 +28,29 @@ module.exports = {
             required: true,
         },
     ],
-    async execute(client, interaction){
-        try{
+    async execute(client, interaction) {
+        try {
             const guildId = interaction.guild.id;
             let ok = false
             const result = await guildCommandsSchema.findOne({
                 guildID: guildId
             })
-            if (!result.rolesMute){
+            if (!result.rolesMute) {
                 return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
             }
             const roles = result.rolesMute.split(" ")
 
-            if (interaction.member.roles.cache.some(r => roles.includes(r.id))){
+            if (interaction.member.roles.cache.some(r => roles.includes(r.id))) {
                 ok = true;
             }
-            if (ok == true || interaction.member.permissions.has('ADMINISTRATOR')){
+            if (ok === true || interaction.member.permissions.has('ADMINISTRATOR')) {
                 const user = interaction.options.getUser('user'); //FOLOSIT DOAR LA MEMBERTARGET
                 const mutedMember = interaction.options.getUser('user'); //FOLOSIT DOAR LA NICKNAME
-                if (user){
+                if (user) {
                     const result2 = await guildCommandsSchema.findOne({
                         guildID: guildId
                     })
-                    if (!result2.mutedRole){
+                    if (!result2.mutedRole) {
                         return await interaction.reply({ content: '**❌ The muted role have not been set up. Please use `/set muted-role`**' });
                     }
                     const muteRole = result2.mutedRole
@@ -58,7 +58,7 @@ module.exports = {
                     const result3 = await guildCommandsSchema.findOne({
                         guildID: guildId
                     })
-                    if (!result3.warnsChannel){
+                    if (!result3.warnsChannel) {
                         return await interaction.reply({ content: '**❌ The warns channel have not been set up. Please use `/set warns-channel`**' });
                     }
                     const channel = result3.warnsChannel
@@ -72,12 +72,12 @@ module.exports = {
                         userID: user.id,
                         type: 'mute',
                     })
-                    if (result){
+                    if (result) {
                         return await interaction.reply(`<@${user.id}> is already muted.`)
                     }
-                    var time = interaction.options.getString('duration');
-                    var muteReason = interaction.options.getString('reason');
-                    if (!containsNumber(time)){
+                    let time = interaction.options.getString('duration');
+                    let muteReason = interaction.options.getString('reason');
+                    if (!containsNumber(time)) {
                         return await interaction.reply('Invalid format');
                     }
                     let split = time.match(/\d+|\D+/g)
@@ -86,20 +86,20 @@ module.exports = {
                     if (type === 'h'){
                         time2 *= 60;
                     }
-                    else if (type === 'd'){
+                    else if (type === 'd') {
                         time2 *= 60 * 24
                     }
-                    else if (type !== 'm'){
+                    else if (type !== 'm') {
                         return await interaction.reply('Invalid format.');
                     }
 
                     await memberTarget.roles.add(muteRole);
 
-                    if (!muteReason){
+                    if (!muteReason) {
                         muteReason = 'No reason provided'
                         await interaction.reply(`<@${memberTarget.user.id}> has been muted for ${ms(ms(time))}`);
                     }
-                    else{
+                    else {
                         await interaction.reply(`<@${memberTarget.user.id}> has been muted for ${muteReason}, ${ms(ms(time))}`);
                     }
                     
@@ -171,7 +171,7 @@ module.exports = {
                 }
             }
             await interaction.reply({ content: '**❌ You are not authorized to use this**' });
-        } catch(err){
+        } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... check if my role is above all the other roles 🤔**' })
             console.log(err)
         }

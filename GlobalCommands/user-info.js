@@ -19,8 +19,8 @@ module.exports = {
             ],
         },
     ],
-    async execute(client, interaction){
-        try{
+    async execute(client, interaction) {
+        try {
             const {guild} = interaction
             const user = interaction.options.getUser('user') || interaction.user
             const member = guild.members.cache.get(user.id)
@@ -35,9 +35,9 @@ module.exports = {
             .addField('Roles', `${member.roles.cache.map(r => r).join(' ').replace("@everyone", " ") || "None"}`)
             .addField('Joined', new Date(member.joinedTimestamp).toLocaleDateString(), true)
             .addField('Created', new Date(user.createdTimestamp).toLocaleDateString(), true)
-            .setFooter(`${process.env.VERSION} • ${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
+            .setFooter(`${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
             await interaction.reply({ embeds: [mesaj] });
-        } catch(err){
+        } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... maybe the user is not on the server 🤔**' });
             console.log(err)
         }

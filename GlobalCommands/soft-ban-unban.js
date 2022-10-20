@@ -47,14 +47,14 @@ module.exports = {
             ],
         },
     ],
-    async execute(client, interaction){
-        try{
+    async execute(client, interaction) {
+        try {
             const subCommand = interaction.options.getSubcommand()
             const guildId = interaction.guild.id;
             const result2 = await guildCommandsSchema.findOne({
                 guildID: guildId
             })
-            if (!result2.bannedRole){
+            if (!result2.bannedRole) {
                 return await interaction.reply({ content: '**❌ The banned role have not been set up. Please use `/set banned-role`**' });
             }
             const banRole = result2.bannedRole
@@ -62,7 +62,7 @@ module.exports = {
             const result3 = await guildCommandsSchema.findOne({
                 guildID: guildId
             })
-            if (!result3.warnsChannel){
+            if (!result3.warnsChannel) {
                 return await interaction.reply({ content: '**❌ The warns channel have not been set up. Please use `/set warns-channel`**' });
             }
             const channel = result3.warnsChannel
@@ -70,31 +70,31 @@ module.exports = {
             const result4 = await guildCommandsSchema.findOne({
                 guildID: guildId
             })
-            if (!result4.mainRole){
+            if (!result4.mainRole) {
                 return await interaction.reply({ content: '**❌ The main role have not been set up. Please use `/set main-role`**' });
             }
             const mainRole = result4.mainRole
 
-            if (subCommand == 'ban'){
+            if (subCommand === 'ban') {
                 let ok = false
                 const result = await guildCommandsSchema.findOne({
                     guildID: guildId
                 })
-                if (!result.rolesBan){
+                if (!result.rolesBan) {
                     return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
                 }
                 const roles = result.rolesBan.split(" ")
         
-                if (interaction.member.roles.cache.some(r => roles.includes(r.id))){
+                if (interaction.member.roles.cache.some(r => roles.includes(r.id))) {
                     ok = true;
                 }
 
-                if (ok == true || interaction.member.permissions.has('ADMINISTRATOR')){
+                if (ok === true || interaction.member.permissions.has('ADMINISTRATOR')) {
                     const user = interaction.options.getUser('user'); //FOLOSIT DOAR LA MEMBERTARGET
                     const bannedMember = interaction.options.getUser('user'); //FOLOSIT DOAR LA NICKNAME
-                    if (user){
+                    if (user) {
                         let memberTarget = interaction.guild.members.cache.get(user.id);
-                        if (memberTarget.roles.cache.some(r => roles.includes(r.id))){
+                        if (memberTarget.roles.cache.some(r => roles.includes(r.id))) {
                             return await interaction.reply('**CAN\'T BAN THAT MEMBER**');
                         }
                         const result = await punishmentSchema.findOne({
@@ -102,19 +102,19 @@ module.exports = {
                             userID: user.id,
                             type: 'ban',
                         })
-                        if (result){
+                        if (result) {
                             return await interaction.reply(`<@${user.id}> is already banned.`)
                         }
-                        var banReason = interaction.options.getString('reason');
+                        let banReason = interaction.options.getString('reason');
 
                         await memberTarget.roles.remove(memberTarget.roles.cache);
                         await memberTarget.roles.add(banRole);
 
-                        if (!banReason){
-                            reason = 'No reason provided'
+                        if (!banReason) {
+                            banReason = 'No reason provided'
                             await interaction.reply(`<@${memberTarget.user.id}> has been banned.`);
                         }
-                        else{
+                        else {
                             await interaction.reply(`<@${memberTarget.user.id}> has been banned for ${banReason}.`);
                         }
                         
@@ -142,7 +142,7 @@ module.exports = {
                             const mesaj = new MessageEmbed()
                             .setTitle('BAN')
                             .setColor('RED')
-                            .setFooter(`${process.env.VERSION} • ${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
+                            .setFooter(`${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
                             .addField(
                                 'ID',
                                 `${memberTarget.id}`,
@@ -179,29 +179,29 @@ module.exports = {
                 }
                 await interaction.reply({ content: '**❌ You are not authorized to use this**' });
             }
-            else{
+            else {
                 let ok = false
                 const result = await guildCommandsSchema.findOne({
                     guildID: guildId
                 })
-                if (!result.rolesUnban){
+                if (!result.rolesUnban) {
                     return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
                 }
                 const roles = result.rolesUnban.split(" ")
         
-                if (interaction.member.roles.cache.some(r => roles.includes(r.id))){
+                if (interaction.member.roles.cache.some(r => roles.includes(r.id))) {
                     ok = true;
                 }
-                if (ok == true || interaction.member.permissions.has('ADMINISTRATOR')){
+                if (ok === true || interaction.member.permissions.has('ADMINISTRATOR')) {
                     const user = interaction.options.getUser('user'); //FOLOSIT DOAR LA MEMBERTARGET
                     const bannedMember = interaction.options.getUser('user'); //FOLOSIT DOAR LA NICKNAME
                     if (user){
                         let memberTarget = interaction.guild.members.cache.get(user.id);
-                        var unbanReason = interaction.options.getString('reason');
+                        let unbanReason = interaction.options.getString('reason');
                         await memberTarget.roles.add(mainRole);
                         await memberTarget.roles.remove(banRole);
                         await interaction.reply(`<@${memberTarget.user.id}> has been unbanned.`);
-                        if (!unbanReason){
+                        if (!unbanReason) {
                             unbanReason = 'No reason provided'
                         }
         
@@ -233,7 +233,7 @@ module.exports = {
                         const mesaj = new MessageEmbed()
                             .setTitle('UNBAN')
                             .setColor('GREEN')
-                            .setFooter(`${process.env.VERSION} • ${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
+                            .setFooter(`${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
                             .addField(
                                 'ID',
                                 `${memberTarget.id}`,
@@ -270,7 +270,7 @@ module.exports = {
                 }
             }
             await interaction.reply({ content: '**❌ You are not authorized to use this**' });
-        } catch(err){
+        } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... check if my role is above all the other roles 🤔**' })
             console.log(err)
         }

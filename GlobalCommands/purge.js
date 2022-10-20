@@ -18,14 +18,14 @@ module.exports = {
             required: false,
         },
     ],
-    async execute(client, interaction){
-        try{
+    async execute(client, interaction) {
+        try {
             const guildId = interaction.guild.id;
             let ok = false
             const result = await guildCommandsSchema.findOne({
                 guildID: guildId
             })
-            if (!result.rolesPurge){
+            if (!result.rolesPurge) {
                 return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
             }
             const roles = result.rolesPurge.split(" ")
@@ -33,7 +33,7 @@ module.exports = {
             if (interaction.member.roles.cache.some(r => roles.includes(r.id))){
                 ok = true;
             }    
-            if (ok == true || interaction.member.permissions.has('ADMINISTRATOR')){
+            if (ok === true || interaction.member.permissions.has('ADMINISTRATOR')){
                     var amount = parseInt(interaction.options.getString('amount'));
                     if (amount > 100){
                         amount = 100;

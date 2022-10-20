@@ -12,9 +12,9 @@ module.exports = {
             description: 'generates the unban ticket',
         },
     ],
-    async execute(client, interaction){
-        if (interaction.member.permissions.has('ADMINISTRATOR')){
-            var row = new MessageActionRow()
+    async execute(client, interaction) {
+        if (interaction.member.permissions.has('ADMINISTRATOR')) {
+            let row = new MessageActionRow()
                 .addComponents(new MessageButton()
                 .setCustomId("open-ticket")
                 .setLabel("Open ticket")
@@ -25,22 +25,21 @@ module.exports = {
                     .setTitle('Unban ticket')
                     .setDescription('If you see this it means you are banned.\nTo open an unban ticket, please click on the button below.')
                     .setColor('RED')
-                    .setFooter(`${process.env.VERSION}`)
                     
             const guildId = interaction.guild.id
             let schema = await guildCommandsSchema.findOne({
                 guildID: guildId,
             })
-            if (!schema.bannedChannel){
+            if (!schema.bannedChannel) {
                 return await interaction.reply('**❌ You have not set up the banned channel. Please use `/set banned-channel`**')
             }
             const channel = schema.bannedChannel
 
-            if (!schema.bannedCategory){
+            if (!schema.bannedCategory) {
                 return await interaction.reply('**❌ You have not set up the banned category. Please use `/set banned-category`**')
             }
             
-            if (!schema.staffRole){
+            if (!schema.staffRole) {
                 return await interaction.reply('**❌ You have not set up the staff role. Please use `/set staff-role`**')
             }
 

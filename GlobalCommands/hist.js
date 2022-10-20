@@ -14,8 +14,8 @@ module.exports = {
             required: true,
         },
     ],
-    async execute (client, interaction){
-        try{
+    async execute (client, interaction) {
+        try {
             const guildId = interaction.guild.id;
             let ok = false
             const result = await guildCommandsSchema.findOne({
@@ -26,14 +26,14 @@ module.exports = {
             }
             const roles = result.rolesHist.split(" ")
 
-            if (interaction.member.roles.cache.some(r => roles.includes(r.id))){
+            if (interaction.member.roles.cache.some(r => roles.includes(r.id))) {
                 ok = true;
             }
-            if (ok == true || interaction.member.permissions.has('ADMINISTRATOR')){
+            if (ok === true || interaction.member.permissions.has('ADMINISTRATOR')) {
                 const user = interaction.options.getUser('user'); //FOLOSIT DOAR LA MEMBERTARGET
                 const targetedMember = interaction.options.getUser('user'); //FOLOSIT DOAR LA NICKNAME
                 let memberTarget = interaction.options.getUser('user');
-                if (user){
+                if (user) {
                     const results = await archiveSchema.find({
                         guilID: guildId,
                         userID: user.id,
@@ -45,20 +45,20 @@ module.exports = {
                             `HISTORY for \`${memberTarget.nickname || targetedMember.tag.substring(0, targetedMember.tag.length - 5)}\``,
                             'clean',
                         )
-                        .setFooter(`Page: 1 • ${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
+                        .setFooter(`${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
                         return await interaction.reply({ embeds: [mesaj] });
                     }
                     let reply = ''
                     const embeds = []
-                    var pages = {}
-                    var numberCheck = 0
-                    var existsPunishments = false;
-                    var pagina = 0
-                    for (const result of results){
-                        if (result.guildID === guildId){
+                    let pages = {}
+                    let numberCheck = 0
+                    let existsPunishments = false;
+                    let pagina = 0
+                    for (const result of results) {
+                        if (result.guildID === guildId) {
                             reply += `[${result._id}] **${result.type.toUpperCase()}** at ${new Date(result.createdAt).toLocaleDateString()} by <@${result.staffID}> for \`${result.reason}\`\n\n`
                             numberCheck++
-                            if (numberCheck % 5 == 0){
+                            if (numberCheck % 5 === 0) {
                                 pagina++
                                 embeds.push(new MessageEmbed()
                                     .setColor('RED')
@@ -73,7 +73,7 @@ module.exports = {
                             }
                         }
                     }
-                    if (numberCheck % 5 != 0){
+                    if (numberCheck % 5 !== 0) {
                         existsPunishments = true
                         pagina++
                         embeds.push(new MessageEmbed()
@@ -85,14 +85,14 @@ module.exports = {
                             )
                         )
                     }
-                    if (reply == '' && !existsPunishments){
+                    if (reply === '' && !existsPunishments) {
                         let mesaj = new MessageEmbed()
                         .setColor('RED')
                         .addField(
                             `HISTORY for \`${memberTarget.nickname || targetedMember.tag.substring(0, targetedMember.tag.length - 5)}\``,
                             'clean',
                         )
-                        .setFooter(`Page: 1 • ${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
+                        .setFooter(`${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
                         return await interaction.reply({ embeds: [mesaj] });
                     }
                     const getRow = (id) => {
@@ -140,7 +140,7 @@ module.exports = {
                     await interaction.reply({ embeds: [embed], components: [getRow(id)] })
                     collector = interaction.channel.createMessageComponentCollector({ filter, time })
                     collector.on('collect', async (btnInt) => {
-                        if (!btnInt){
+                        if (!btnInt) {
                             return;
                         }
                         // interaction.deferReply()
@@ -148,7 +148,7 @@ module.exports = {
                             return;
                         }
                         await btnInt.deferUpdate()
-                        switch (btnInt.customId){
+                        switch (btnInt.customId) {
                             case 'prev_embed':
                                 --pages[id]
                                 break;
@@ -165,7 +165,7 @@ module.exports = {
                 }
             }
             await interaction.reply({ content: '**❌ You are not authorized to use this**' });
-        } catch(err){
+        } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... check if the user is in the server 🤔**' })
             console.log(err)
         }

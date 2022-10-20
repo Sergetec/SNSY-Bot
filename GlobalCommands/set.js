@@ -58,13 +58,13 @@ module.exports = {
             ],
         },
     ],
-    async execute(client, interaction){
-        try{
-            if (interaction.member.permissions.has('ADMINISTRATOR')){
+    async execute(client, interaction) {
+        try {
+            if (interaction.member.permissions.has('ADMINISTRATOR')) {
                 const guildID = interaction.guild.id;
                 let schema
                 const subCommand = interaction.options.getSubcommand()
-                switch (subCommand){
+                switch (subCommand) {
                     case 'main-role':
                         const mainRole = interaction.options.getRole('role')
                         await interaction.reply(`✅ Role: ${mainRole} have been set as the main role.`)
@@ -73,11 +73,11 @@ module.exports = {
                         schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
                         })
-                        if (schema){
+                        if (schema) {
                             schema.mainRole = mainRole
                             await schema.save();
                         }
-                        else{
+                        else {
                             //DATABASE
                             schema = await guildCommandsSchema.create({
                                 guildID: guildID,
@@ -89,7 +89,7 @@ module.exports = {
                         schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
                         })
-                        var newMainRole = schema.mainRole
+                        let newMainRole = schema.mainRole;
                         newMainRole = newMainRole.replaceAll('<', '');
                         newMainRole = newMainRole.replaceAll('@', '');
                         newMainRole = newMainRole.replaceAll('&', '');
@@ -106,11 +106,11 @@ module.exports = {
                         schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
                         })
-                        if (schema){
+                        if (schema) {
                             schema.warnsChannel = warnsChannel
                             await schema.save();
                         }
-                        else{
+                        else {
                             //DATABASE
                             schema = await guildCommandsSchema.create({
                                 guildID: guildID,
@@ -122,7 +122,7 @@ module.exports = {
                         schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
                         })
-                        var newWarnsChannel = schema.warnsChannel
+                        let newWarnsChannel = schema.warnsChannel;
                         newWarnsChannel = newWarnsChannel.replaceAll('<', '');
                         newWarnsChannel = newWarnsChannel.replaceAll('#', '');
                         newWarnsChannel = newWarnsChannel.replaceAll('>', '');
@@ -138,11 +138,11 @@ module.exports = {
                         schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
                         })
-                        if (schema){
+                        if (schema) {
                             schema.notificationsChannel = noticationsChannel
                             await schema.save();
                         }
-                        else{
+                        else {
                             //DATABASE
                             schema = await guildCommandsSchema.create({
                                 guildID: guildID,
@@ -154,7 +154,7 @@ module.exports = {
                         schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
                         })
-                        var newNotificationsChannel = schema.notificationsChannel
+                        let newNotificationsChannel = schema.notificationsChannel;
                         newNotificationsChannel = newNotificationsChannel.replaceAll('<', '');
                         newNotificationsChannel = newNotificationsChannel.replaceAll('#', '');
                         newNotificationsChannel = newNotificationsChannel.replaceAll('>', '');
@@ -170,11 +170,11 @@ module.exports = {
                         schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
                         })
-                        if (schema){
+                        if (schema) {
                             schema.staffRole = staffRole
                             await schema.save();
                         }
-                        else{
+                        else {
                             //DATABASE
                             schema = await guildCommandsSchema.create({
                                 guildID: guildID,
@@ -186,7 +186,7 @@ module.exports = {
                         schema = await guildCommandsSchema.findOne({
                             guildID: guildID,
                         })
-                        var newStaffRole = schema.staffRole
+                        let newStaffRole = schema.staffRole;
                         newStaffRole = newStaffRole.replaceAll('<', '');
                         newStaffRole = newStaffRole.replaceAll('@', '');
                         newStaffRole = newStaffRole.replaceAll('&', '');
@@ -200,8 +200,8 @@ module.exports = {
                         })
                         const category = interaction.guild.channels.cache.get(results2.bannedCategory)
                         const staff = results2.staffRole.split(' ')
-                        for (const role of staff){
-                            category.permissionOverwrites.edit(role, {
+                        for (const role of staff) {
+                            await category.permissionOverwrites.edit(role, {
                                 VIEW_CHANNEL: true,
                                 SEND_MESSAGES: true,
                                 READ_MESSAGE_HISTORY: true,
@@ -210,8 +210,8 @@ module.exports = {
                         }
 
                         const channel = interaction.guild.channels.cache.get(results2.bannedChannel)
-                        for (const role of staff){
-                            channel.permissionOverwrites.edit(role, {
+                        for (const role of staff) {
+                            await channel.permissionOverwrites.edit(role, {
                                 VIEW_CHANNEL: true,
                                 SEND_MESSAGES: false,
                                 READ_MESSAGE_HISTORY: true,
@@ -224,7 +224,7 @@ module.exports = {
                 return;
             }
             await interaction.reply({ content: '**❌ You are not authorized to use this**' });
-        } catch(err){
+        } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... please contact me: Sergetec#6803 🤔**' })
             console.log(err)
         }

@@ -1,6 +1,5 @@
 const { Client, CommandInteraction } = require('discord.js')
 const { MessageEmbed } = require('discord.js');
-const punishmentSchema = require('../Models/punishment-schema');
 const archiveSchema = require('../Models/archive-schema')
 const guildCommandsSchema = require('../Models/guildCommands-schema')
 
@@ -21,14 +20,14 @@ module.exports = {
             required: true,
         },
     ],
-    async execute(client, interaction){
-        try{
+    async execute(client, interaction) {
+        try {
             const guildId = interaction.guild.id;
             let ok = false
             const result = await guildCommandsSchema.findOne({
                 guildID: guildId
             })
-            if (!result.rolesKick){
+            if (!result.rolesKick) {
                 return await interaction.reply({ content: '**❌ You are not authorized to use this**' });
             }
             const roles = result.rolesKick.split(" ")
@@ -36,22 +35,22 @@ module.exports = {
             const result2 = await guildCommandsSchema.findOne({
                 guildID: guildId
             })
-            if (!result2.warnsChannel){
+            if (!result2.warnsChannel) {
                 return await interaction.reply({ content: '**❌ The warns channel have not been set up. Please use `/set warns-channel`**' });
             }
             const channel = result2.warnsChannel
 
-            if (interaction.member.roles.cache.some(r => roles.includes(r.id))){
+            if (interaction.member.roles.cache.some(r => roles.includes(r.id))) {
                 ok = true;
             }
-            if (ok == true || interaction.member.permissions.has('ADMINISTRATOR')){
+            if (ok === true || interaction.member.permissions.has('ADMINISTRATOR')) {
                 const user = interaction.options.getUser('user'); //FOLOSIT DOAR LA MEMBERTARGET
                 const kickedMember = interaction.options.getUser('user'); //FOLOSIT DOAR LA NICKNAME
-                if (!user){
+                if (!user) {
                     return await interaction.reply('Can\'t find that member')
                 }
                 let memberTarget = interaction.guild.members.cache.get(user.id);
-                if (memberTarget.roles.cache.some(r => roles.includes(r.id))){
+                if (memberTarget.roles.cache.some(r => roles.includes(r.id))) {
                     return await interaction.reply('**CAN\'T KICK THAT MEMBER**');
                 }
                 const result3 = await archiveSchema.findOne({
@@ -61,8 +60,8 @@ module.exports = {
                 if (result3){
                     return await interaction.reply(`<@${user.id}> is already kicked out.`)
                 }
-                var kickReason = interaction.options.getString('reason');
-                if (!kickReason){
+                let kickReason = interaction.options.getString('reason');
+                if (!kickReason) {
                     kickReason = 'No reason provided'
                 }
                 await interaction.reply(`<@${user.id}> was kicked by <@${interaction.user.id}>`)
@@ -120,7 +119,7 @@ module.exports = {
                     return;
             }
             await interaction.reply({ content: '**❌ You are not authorized to use this**' });
-        } catch(err){
+        } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... check if my role is above all the other roles 🤔**' })
             console.log(err)
         }

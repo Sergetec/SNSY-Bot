@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'server-info',
     description: 'displays server info',
-    async execute(client, interaction){
+    async execute(client, interaction) {
         const { guild } = interaction;
         const mesaj = new MessageEmbed()
         .setColor("RED")
@@ -40,7 +40,7 @@ module.exports = {
             '✨ | NITRO',
             `- Boosts: ${guild.premiumSubscriptionCount}`
         )
-        .setFooter(`${process.env.VERSION} • ${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
+        .setFooter(`${new Date(interaction.createdTimestamp).toLocaleDateString()}`)
         await interaction.reply({embeds: [mesaj]});
     }
 }

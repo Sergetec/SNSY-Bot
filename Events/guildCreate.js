@@ -5,7 +5,7 @@ module.exports = {
     name: 'guildCreate',
     description: 'when bot joins a new guild',
     on: true,
-    async execute(guild, client, interaction){
+    async execute(guild, client, interaction) {
         let channelToSend;
         guild.channels.cache.forEach((channel) => {
             if (channel.type === 'GUILD_TEXT' && !channelToSend){
@@ -51,22 +51,22 @@ module.exports = {
         .setFooter(`${process.env.VERSION}`)
 
         await channelToSend.send({ embeds: [mesaj2] });
-        
+        let schema
         await guild.roles.create({
             name: 'Muted',
             color: 'DARK_RED',
         }).then(async (role) => {
-            role.setPermissions(['READ_MESSAGE_HISTORY', 'CONNECT'])
+            await role.setPermissions(['READ_MESSAGE_HISTORY', 'CONNECT'])
             
             //Check for the same guild -> update
             schema = await guildCommandsSchema.findOne({
                 guildID: guild.id,
             })
-            if (schema){
+            if (schema) {
                 schema.mutedRole = role
                 await schema.save();
             }
-            else{
+            else {
                 //DATABASE
                 schema = await guildCommandsSchema.create({
                     guildID: guild.id,
@@ -78,7 +78,7 @@ module.exports = {
             schema = await guildCommandsSchema.findOne({
                 guildID: guild.id,
             })
-            var newMutedRole = schema.mutedRole
+            let newMutedRole = schema.mutedRole;
             newMutedRole = newMutedRole.replaceAll('<', '');
             newMutedRole = newMutedRole.replaceAll('@', '');
             newMutedRole = newMutedRole.replaceAll('&', '');
@@ -103,7 +103,7 @@ module.exports = {
             name: 'Banned',
             color: 'GREY',
         }).then(async (role) => {
-            role.setPermissions(['SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'CONNECT', 'SPEAK'])
+            await role.setPermissions(['SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'CONNECT', 'SPEAK'])
     
             //Check for the same guild -> update
             schema = await guildCommandsSchema.findOne({
@@ -125,7 +125,7 @@ module.exports = {
             schema = await guildCommandsSchema.findOne({
                 guildID: guild.id,
             })
-            var newBannedRole = schema.bannedRole
+            let newBannedRole = schema.bannedRole;
             newBannedRole = newBannedRole.replaceAll('<', '');
             newBannedRole = newBannedRole.replaceAll('@', '');
             newBannedRole = newBannedRole.replaceAll('&', '');
@@ -153,11 +153,11 @@ module.exports = {
         schema = await guildCommandsSchema.findOne({
             guildID: guild.id,
         })
-        if (schema){
+        if (schema) {
             schema.bannedCategory = category
             await schema.save();
         }
-        else{
+        else {
             //DATABASE
             schema = await guildCommandsSchema.create({
                 guildID: guild.id,
@@ -169,7 +169,7 @@ module.exports = {
         schema = await guildCommandsSchema.findOne({
             guildID: guild.id,
         })
-        var newBannedCategory = schema.bannedCategory
+        let newBannedCategory = schema.bannedCategory;
         newBannedCategory = newBannedCategory.replaceAll('<', '');
         newBannedCategory = newBannedCategory.replaceAll('#', '');
         newBannedCategory = newBannedCategory.replaceAll('>', '');
@@ -206,11 +206,11 @@ module.exports = {
             })
             await schema.save();
         }
-    
+
         schema = await guildCommandsSchema.findOne({
             guildID: guild.id,
         })
-        var newBannedChannel = schema.bannedChannel
+        let newBannedChannel = schema.bannedChannel;
         newBannedChannel = newBannedChannel.replaceAll('<', '');
         newBannedChannel = newBannedChannel.replaceAll('#', '');
         newBannedChannel = newBannedChannel.replaceAll('>', '');

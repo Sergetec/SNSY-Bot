@@ -5,8 +5,8 @@ const { connection } = require('mongoose')
 module.exports = {
     name: 'status',
     description: 'displays status of the bot',
-    async execute(client, interaction){
-        if (interaction.member.permissions.has('ADMINISTRATOR')){
+    async execute(client, interaction) {
+        if (interaction.member.permissions.has('ADMINISTRATOR')) {
             const ping = (interaction.createdTimestamp - Date.now()) * (-1)
             const mesaj = new MessageEmbed()
             .setColor('RED')
@@ -17,8 +17,8 @@ module.exports = {
     }
 }
 
-function switchTo(val){
-    var status = ' '
+function switchTo(val) {
+    let status = ' ';
     switch (val) {
         case 0:
             status = '🔴 DISCONNECTED'
