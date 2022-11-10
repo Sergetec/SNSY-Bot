@@ -69,7 +69,7 @@ module.exports = {
                             .setStyle("DANGER")
                         );
                     const mesaj = new MessageEmbed()
-                    .setTitle('Ticket')
+                    .setTitle('Unban ticket')
                     .setDescription('A staff member will take over your ticket as soon as notified.')
                     .setColor('RED')
                     await channel.send({content: `<@${user}> Here is your unban ticket`, embeds: [mesaj], components: [row]});
