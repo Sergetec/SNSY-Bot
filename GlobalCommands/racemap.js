@@ -47,7 +47,7 @@ module.exports = {
             await interaction.editReply({ content: `${i}` })
             await sleep(1000)
         }
-        return await interaction.editReply({ content: `Race map is: ${map}` })
+        return await interaction.editReply({ content: `Race map is: **${map}**` })
     }
 }
 
