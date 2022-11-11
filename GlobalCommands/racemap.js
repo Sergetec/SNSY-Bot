@@ -1,9 +1,10 @@
-const { Client, CommandInteraction } = require('discord.js')
-
 module.exports = {
     name: 'racemap',
     description: 'random race map',
-    async execute (client, interaction) {
+    async execute(interaction) {
+        if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+            return await interaction.reply({ content: 'Not allowed!' })
+        }
         let nr = getRndInteger(1, 10);
         let map = ''
         switch (nr) {
@@ -44,7 +45,7 @@ module.exports = {
             await interaction.editReply({ content: `${i}` })
             await sleep(1000)
         }
-        return await interaction.editReply({ content: `Race map is: **${map}**` })
+        return await interaction.editReply({ content: `Race map is: ${map}` })
     }
 }
 
