@@ -1,7 +1,9 @@
+const { Client, CommandInteraction } = require('discord.js')
+
 module.exports = {
     name: 'racemap',
     description: 'random race map',
-    async execute(interaction) {
+    async execute (client, interaction) {
         if (!interaction.member.permissions.has('ADMINISTRATOR')) {
             return await interaction.reply({ content: 'Not allowed!' })
         }
