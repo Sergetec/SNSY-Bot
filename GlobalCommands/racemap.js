@@ -2,9 +2,6 @@ module.exports = {
     name: 'racemap',
     description: 'random race map',
     async execute(interaction) {
-        if (!interaction.member.permissions.has('ADMINISTRATOR')) {
-            return await interaction.reply({ content: 'Not allowed!' })
-        }
         let nr = getRndInteger(1, 10);
         let map = ''
         switch (nr) {
