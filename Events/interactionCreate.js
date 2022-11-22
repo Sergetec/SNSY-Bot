@@ -73,12 +73,12 @@ module.exports = {
                     .setDescription('A staff member will take over your ticket as soon as notified.')
                     .setColor('RED')
                     await channel.send({content: `<@${user}> Here is your unban ticket`, embeds: [mesaj], components: [row]});
-                    await client.channels.cache.get(canalStaffNotif).send(`<@&${staff}> user <@${user}> opened the unban ticket <#${channel.id}>`)
+                    await client.channels.cache.get(canalStaffNotif).send(`<@&${staff}> <@${user}> **has opened an unban request ⇒** <#${channel.id}>`)
                 });
             }
             else if (interaction.customId === "close-ticket" && interaction.member.roles.cache.has(staff[0])) {
                 await interaction.deferUpdate()
-                await interaction.channel.delete();
+                await interaction.channel.delete()
             }
         }
 

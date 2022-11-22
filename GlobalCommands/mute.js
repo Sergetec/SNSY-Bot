@@ -134,7 +134,7 @@ module.exports = {
                         .setTitle('MUTE')
                         .setColor('RED')
                         .setFooter({
-                            text: `${process.env.VERSION} • ${new Date(interaction.createdTimestamp).toLocaleDateString()}`
+                            text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
                         })
                         .addFields({
                             name: 'ID',
