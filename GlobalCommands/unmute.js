@@ -108,7 +108,7 @@ module.exports = {
                             inline: true
                         })
                         .addFields({
-                            name: 'Banned by',
+                            name: 'Unmuted by',
                             value: `<@${interaction.user.id}>`,
                             inline: true
                         })
