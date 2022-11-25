@@ -64,6 +64,9 @@ module.exports = {
                         const message = new MessageEmbed()
                             .setTitle('UNMUTE')
                             .setColor('GREEN')
+                            .setFooter({
+                                text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
+                            })
                             .addFields({
                                 name: 'ID',
                                 value: `${memberTarget.id}`,
@@ -127,6 +130,9 @@ module.exports = {
                             const message = new MessageEmbed()
                                 .setTitle('UNMUTE')
                                 .setColor('GREEN')
+                                .setFooter({
+                                    text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
+                                })
                                 .addFields({
                                     name: 'ID',
                                     value: `${memberTarget.id}`,

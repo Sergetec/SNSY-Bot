@@ -1,10 +1,11 @@
 const { Client, CommandInteraction } = require('discord.js')
+const guildCommandsSchema = require('../Models/guildCommands-schema')
 
 module.exports = {
     name: 'racemap',
     description: 'random race map',
     async execute (client, interaction) {
-        if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+        if (!interaction.member.permissions.has('ADMINISTRATOR') || !interaction.member.roles.cache.has(999749692361552005)) {
             return await interaction.reply({ content: 'Not allowed!' })
         }
         let nr = getRndInteger(1, 10);

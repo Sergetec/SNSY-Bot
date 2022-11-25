@@ -4,7 +4,7 @@ module.exports = {
     name: 'eliminationmap',
     description: 'random elimination map',
     async execute (client, interaction) {
-        if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+        if (!interaction.member.permissions.has('ADMINISTRATOR') || !interaction.member.roles.cache.has(999749692361552005)) {
             return await interaction.reply({ content: 'Not allowed!' })
         }
         let nr = getRndInteger(1, 6);
