@@ -67,11 +67,11 @@ module.exports = {
                 switch (subCommand) {
                     case 'main-roles':
                         let roles = interaction.options.getString('roles')
-                        const rolesName = roles;
-                        roles = roles.replaceAll('<', '');
-                        roles = roles.replaceAll('@', '');
-                        roles = roles.replaceAll('&', '');
-                        roles = roles.replaceAll('>', '');
+                        const rolesName = roles
+                        roles = roles.replaceAll('<', '')
+                        roles = roles.replaceAll('@', '')
+                        roles = roles.replaceAll('&', '')
+                        roles = roles.replaceAll('>', '')
                         await interaction.reply({ content: `✅ Role: ${rolesName} have been set as the main role(s).` })
 
                         //Check for the same guild -> update
@@ -94,10 +94,10 @@ module.exports = {
                         break;
                     case 'warns-channel':
                         const warnsChannel = interaction.options.getChannel('channel')
-                        let newWarnsChannel = warnsChannel;
-                        newWarnsChannel = newWarnsChannel.replaceAll('<', '');
-                        newWarnsChannel = newWarnsChannel.replaceAll('#', '');
-                        newWarnsChannel = newWarnsChannel.replaceAll('>', '');
+                        let newWarnsChannel = warnsChannel.id
+                        newWarnsChannel = newWarnsChannel.replaceAll('<', '')
+                        newWarnsChannel = newWarnsChannel.replaceAll('#', '')
+                        newWarnsChannel = newWarnsChannel.replaceAll('>', '')
                         await interaction.reply({ content: `✅ Channel: ${warnsChannel} have been set as the warns channel.` })
 
                         //Check for the same guild -> update
@@ -120,10 +120,10 @@ module.exports = {
                         break;
                     case 'notifications-channel':
                         const noticationsChannel = interaction.options.getChannel('channel')
-                        let newNotificationsChannel = noticationsChannel
-                        newNotificationsChannel = newNotificationsChannel.replaceAll('<', '');
-                        newNotificationsChannel = newNotificationsChannel.replaceAll('#', '');
-                        newNotificationsChannel = newNotificationsChannel.replaceAll('>', '');
+                        let newNotificationsChannel = noticationsChannel.id
+                        newNotificationsChannel = newNotificationsChannel.replaceAll('<', '')
+                        newNotificationsChannel = newNotificationsChannel.replaceAll('#', '')
+                        newNotificationsChannel = newNotificationsChannel.replaceAll('>', '')
                         await interaction.reply({ content: `✅ Channel: ${noticationsChannel} have been set as the notifications channel.` })
 
                         //Check for the same guild -> update
@@ -146,11 +146,11 @@ module.exports = {
                         break;
                     case 'staff-role':
                         const staffRole = interaction.options.getRole('role')
-                        let newStaffRole = schema.staffRole;
-                        newStaffRole = newStaffRole.replaceAll('<', '');
-                        newStaffRole = newStaffRole.replaceAll('@', '');
-                        newStaffRole = newStaffRole.replaceAll('&', '');
-                        newStaffRole = newStaffRole.replaceAll('>', '');
+                        let newStaffRole = staffRole.id
+                        newStaffRole = newStaffRole.replaceAll('<', '')
+                        newStaffRole = newStaffRole.replaceAll('@', '')
+                        newStaffRole = newStaffRole.replaceAll('&', '')
+                        newStaffRole = newStaffRole.replaceAll('>', '')
                         await interaction.reply({ content: `✅ Role: ${staffRole} have been set as the staff role.` })
 
                         //Check for the same guild -> update
