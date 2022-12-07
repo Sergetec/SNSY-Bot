@@ -34,11 +34,11 @@ module.exports = {
                 if (!isIterable(results)) {
                     console.log(results)
                     if (!results.mutedRole) {
-                        return;
+                        return
                     }
                     const muteRole = results.mutedRole
                     if (!results.warnsChannel) {
-                        return;
+                        return
                     }
                     const channel = results.warnsChannel
 
@@ -57,7 +57,7 @@ module.exports = {
                     try {
                         const memberTarget = await guild.members.fetch(userID)
                         if (!memberTarget) {
-                            return;
+                            return
                         }
                         memberTarget.roles.remove(muteRole)
 
@@ -99,11 +99,11 @@ module.exports = {
                         }
                         const result2 = await guildCommandsSchema.findOne(query2)
                         if (!result2.mutedRole) {
-                            continue;
+                            continue
                         }
                         const muteRole = result2.mutedRole
                         if (!result2.warnsChannel) {
-                            continue;
+                            continue
                         }
                         const channel = result2.warnsChannel
 
@@ -121,9 +121,8 @@ module.exports = {
 
                         try {
                             const memberTarget = await guild.members.fetch(result.userID)
-                            console.log(memberTarget.id)
                             if (!memberTarget) {
-                                continue;
+                                continue
                             }
                             memberTarget.roles.remove(muteRole)
 
@@ -174,7 +173,7 @@ module.exports = {
 function isIterable(obj) {
     // checks for null and undefined
     if (obj == null) {
-      return false;
+      return false
     }
-    return typeof obj[Symbol.iterator] === 'function';
+    return typeof obj[Symbol.iterator] === 'function'
 }

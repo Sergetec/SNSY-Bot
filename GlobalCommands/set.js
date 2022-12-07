@@ -6,7 +6,7 @@ module.exports = {
     description: 'Setup channel/roles',
     options: [
         {
-            name: 'main-roles',
+            name: 'member-roles',
             type: 'SUB_COMMAND',
             description: 'The member roles',
             options: [
@@ -65,14 +65,15 @@ module.exports = {
                 let schema
                 const subCommand = interaction.options.getSubcommand()
                 switch (subCommand) {
-                    case 'main-roles':
+                    case 'member-roles':
                         let roles = interaction.options.getString('roles')
+                        roles = roles.replace(/\s\s+/g, ' ') //delete every duplicate white space
                         const rolesName = roles
                         roles = roles.replaceAll('<', '')
                         roles = roles.replaceAll('@', '')
                         roles = roles.replaceAll('&', '')
                         roles = roles.replaceAll('>', '')
-                        await interaction.reply({ content: `✅ Role: ${rolesName} have been set as the main role(s).` })
+                        await interaction.reply({ content: `✅ Role: ${rolesName} have been set as the member role(s).` })
 
                         //Check for the same guild -> update
                         schema = await guildCommandsSchema.findOne({
@@ -95,9 +96,6 @@ module.exports = {
                     case 'warns-channel':
                         const warnsChannel = interaction.options.getChannel('channel')
                         let newWarnsChannel = warnsChannel.id
-                        newWarnsChannel = newWarnsChannel.replaceAll('<', '')
-                        newWarnsChannel = newWarnsChannel.replaceAll('#', '')
-                        newWarnsChannel = newWarnsChannel.replaceAll('>', '')
                         await interaction.reply({ content: `✅ Channel: ${warnsChannel} have been set as the warns channel.` })
 
                         //Check for the same guild -> update
@@ -121,9 +119,6 @@ module.exports = {
                     case 'notifications-channel':
                         const noticationsChannel = interaction.options.getChannel('channel')
                         let newNotificationsChannel = noticationsChannel.id
-                        newNotificationsChannel = newNotificationsChannel.replaceAll('<', '')
-                        newNotificationsChannel = newNotificationsChannel.replaceAll('#', '')
-                        newNotificationsChannel = newNotificationsChannel.replaceAll('>', '')
                         await interaction.reply({ content: `✅ Channel: ${noticationsChannel} have been set as the notifications channel.` })
 
                         //Check for the same guild -> update
@@ -147,10 +142,6 @@ module.exports = {
                     case 'staff-role':
                         const staffRole = interaction.options.getRole('role')
                         let newStaffRole = staffRole.id
-                        newStaffRole = newStaffRole.replaceAll('<', '')
-                        newStaffRole = newStaffRole.replaceAll('@', '')
-                        newStaffRole = newStaffRole.replaceAll('&', '')
-                        newStaffRole = newStaffRole.replaceAll('>', '')
                         await interaction.reply({ content: `✅ Role: ${staffRole} have been set as the staff role.` })
 
                         //Check for the same guild -> update
