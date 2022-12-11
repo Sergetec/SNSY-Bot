@@ -118,7 +118,12 @@ module.exports = {
                         rolesSoftBan = schema.rolesBan.split(' ')
                         for (let i = 0; i < rolesSoftBan.length; ++i) {
                             let role = interaction.guild.roles.cache.find(r => r.id === rolesSoftBan[i])
-                            rolesSoftBan[i] = " " + role.name
+                            if (role) {
+                                rolesSoftBan[i] = " " + role.name
+                            }
+                            else {
+                                rolesSoftBan[i] = " " + "deleted-role"
+                            }
                         }
                     }
 
@@ -126,7 +131,12 @@ module.exports = {
                         rolesSoftUnban = schema.rolesUnban.split(' ')
                         for (let i = 0; i < rolesSoftUnban.length; ++i) {
                             let role = interaction.guild.roles.cache.find(r => r.id === rolesSoftUnban[i])
-                            rolesSoftUnban[i] = " " + role.name
+                            if (role) {
+                                rolesSoftUnban[i] = " " + role.name
+                            }
+                            else {
+                                rolesSoftUnban[i] = " " + "deleted-role"
+                            }
                         }
                     }
 
@@ -134,7 +144,12 @@ module.exports = {
                         rolesMute = schema.rolesMute.split(' ')
                         for (let i = 0; i < rolesMute.length; ++i) {
                             let role = interaction.guild.roles.cache.find(r => r.id === rolesMute[i])
-                            rolesMute[i] = " " + role.name
+                            if (role) {
+                                rolesMute[i] = " " + role.name
+                            }
+                            else {
+                                rolesMute[i] = " " + "deleted-role"
+                            }
                         }
                     }
 
@@ -142,7 +157,12 @@ module.exports = {
                         rolesUnmute = schema.rolesUnmute.split(' ')
                         for (let i = 0; i < rolesUnmute.length; ++i) {
                             let role = interaction.guild.roles.cache.find(r => r.id === rolesUnmute[i])
-                            rolesUnmute[i] = " " + role.name
+                            if (role) {
+                                rolesUnmute[i] = " " + role.name
+                            }
+                            else {
+                                rolesUnmute[i] = " " + "deleted-role"
+                            }
                         }
                     }
 
@@ -150,7 +170,12 @@ module.exports = {
                         rolesKick = schema.rolesKick.split(' ')
                         for (let i = 0; i < rolesKick.length; ++i) {
                             let role = interaction.guild.roles.cache.find(r => r.id === rolesKick[i])
-                            rolesKick[i] = " " + role.name
+                            if (role) {
+                                rolesKick[i] = " " + role.name
+                            }
+                            else {
+                                rolesKick[i] = " " + "deleted-role"
+                            }
                         }
                     }
 
@@ -158,7 +183,12 @@ module.exports = {
                         rolesHist = schema.rolesHist.split(' ')
                         for (let i = 0; i < rolesHist.length; ++i) {
                             let role = interaction.guild.roles.cache.find(r => r.id === rolesHist[i])
-                            rolesHist[i] = " " + role.name
+                            if (role) {
+                                rolesHist[i] = " " + role.name
+                            }
+                            else {
+                                rolesHist[i] = " " + "deleted-role"
+                            }
                         }
                     }
 
@@ -166,7 +196,12 @@ module.exports = {
                         rolesPurge = schema.rolesPurge.split(' ')
                         for (let i = 0; i < rolesPurge.length; ++i) {
                             let role = interaction.guild.roles.cache.find(r => r.id === rolesPurge[i])
-                            rolesPurge[i] = " " + role.name
+                            if (role) {
+                                rolesPurge[i] = " " + role.name
+                            }
+                            else {
+                                rolesPurge[i] = " " + "deleted-role"
+                            }
                         }
                     }
 

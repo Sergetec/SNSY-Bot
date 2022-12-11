@@ -9,7 +9,7 @@ module.exports = {
     name: 'ready',
     description: 'on startup | expired punishments',
     on: true,
-    async execute (client) {
+    async execute (client, interaction) {
         console.log('SNSY Bot online!');
 
         await mongoose.connect(mongoPath, {
