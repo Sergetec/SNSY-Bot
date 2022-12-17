@@ -86,11 +86,12 @@ module.exports = {
                     arhiva.save();
 
                     //#SANCTIUNI
+                    let date = new Date()
                     const mesaj = new MessageEmbed()
                         .setTitle('UNMUTE')
                         .setColor('GREEN')
                         .setFooter({
-                            text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
+                            text: `${date.toLocaleDateString()}`
                         })
                         .addFields({
                             name: 'ID',

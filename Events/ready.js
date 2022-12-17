@@ -32,7 +32,6 @@ module.exports = {
                 }
                 const results = await punishmentSchema.find(query)
                 if (!isIterable(results)) {
-                    console.log(results)
                     if (!results.mutedRole) {
                         return
                     }
@@ -55,6 +54,7 @@ module.exports = {
                     await punishmentSchema.deleteMany(query)
 
                     try {
+                        let date = new Date()
                         const memberTarget = await guild.members.fetch(userID)
                         if (!memberTarget) {
                             return
@@ -65,7 +65,7 @@ module.exports = {
                             .setTitle('UNMUTE')
                             .setColor('GREEN')
                             .setFooter({
-                                text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
+                                text: `${date.toLocaleString()}`
                             })
                             .addFields({
                                 name: 'ID',
@@ -120,6 +120,7 @@ module.exports = {
                         await punishmentSchema.deleteMany(query)
 
                         try {
+                            let date = new Date()
                             const memberTarget = await guild.members.fetch(result.userID)
                             if (!memberTarget) {
                                 continue
@@ -130,7 +131,7 @@ module.exports = {
                                 .setTitle('UNMUTE')
                                 .setColor('GREEN')
                                 .setFooter({
-                                    text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
+                                    text: `${date.toLocaleDateString()}`
                                 })
                                 .addFields({
                                     name: 'ID',

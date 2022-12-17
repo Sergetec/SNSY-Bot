@@ -130,11 +130,12 @@ module.exports = {
                     arhiva.save();
                     
                     //#SANCTIUNI
+                    let date = new Date()
                     const mesaj = new MessageEmbed()
                         .setTitle('MUTE')
                         .setColor('RED')
                         .setFooter({
-                            text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
+                            text: `${date.toLocaleDateString()}`
                         })
                         .addFields({
                             name: 'ID',
