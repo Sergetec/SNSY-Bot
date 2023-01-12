@@ -86,13 +86,9 @@ module.exports = {
                     arhiva.save();
 
                     //#SANCTIUNI
-                    let date = new Date()
                     const mesaj = new MessageEmbed()
                         .setTitle('UNMUTE')
                         .setColor('GREEN')
-                        .setFooter({
-                            text: `${date.toLocaleDateString()}`
-                        })
                         .addFields({
                             name: 'ID',
                             value: `${memberTarget.id}`,

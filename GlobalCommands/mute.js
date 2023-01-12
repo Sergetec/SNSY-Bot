@@ -130,13 +130,9 @@ module.exports = {
                     await arhiva.save();
                     
                     //#SANCTIUNI
-                    let date = new Date()
                     const mesaj = new MessageEmbed()
                         .setTitle('MUTE')
                         .setColor('RED')
-                        .setFooter({
-                            text: `${date.toLocaleDateString()}`
-                        })
                         .addFields({
                             name: 'ID',
                             value: `${memberTarget.id}`,

@@ -139,13 +139,9 @@ module.exports = {
                         await arhiva.save();
 
                         //#SANCTIUNI
-                        let date = new Date()
                         const mesaj = new MessageEmbed()
                             .setTitle('BAN')
                             .setColor('RED')
-                            .setFooter({
-                                text: `${date.toLocaleDateString()}`
-                            })
                             .addFields({
                                 name: 'ID',
                                 value: `${memberTarget.id}`,
@@ -237,9 +233,6 @@ module.exports = {
                         const mesaj = new MessageEmbed()
                             .setTitle('UNBAN')
                             .setColor('GREEN')
-                            .setFooter({
-                                text: `${date.toLocaleDateString()}`
-                            })
                             .addFields({
                                 name: 'ID',
                                 value: `${memberTarget.id}`,
