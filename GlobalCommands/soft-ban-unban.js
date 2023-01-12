@@ -176,6 +176,7 @@ module.exports = {
                                 value: `${banReason}`,
                                 inline: true
                             })
+                            .setTimestamp(Date.now())
                         return client.channels.cache.get(channel).send({ embeds: [mesaj] });
                     }
                 }
@@ -269,6 +270,7 @@ module.exports = {
                                 value: `${unbanReason}`,
                                 inline: true
                             })
+                            .setTimestamp(Date.now())
                             return client.channels.cache.get(channel).send({ embeds: [mesaj] });
                     }
                 }

@@ -2,15 +2,8 @@ const { Client, CommandInteraction } = require('discord.js')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-    name: 'user',
-    description: 'displays informations about a user',
-    options: [
-        {
-            name: 'info',
-            type: 'SUB_COMMAND',
-            description: 'displays info about a user',
-        },
-    ],
+    name: 'userinfo',
+    description: 'Displays informations about a user',
     async execute(client, interaction) {
         try {
             const {guild} = interaction
@@ -50,10 +43,9 @@ module.exports = {
                 value: new Date(user.createdTimestamp).toLocaleDateString(),
                 inline: true
             })
-            .setFooter({
-                text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
-            })
-            return await interaction.reply({ embeds: [mesaj] });
+            .setTimestamp(Date.now())
+
+            return await interaction.reply({ embeds: [mesaj] })
         } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... maybe the user is not on the server 🤔**' });
             console.log(err)

@@ -123,10 +123,12 @@ module.exports = {
                             value: `${unmuteReason}`,
                             inline: true
                         })
-                        return client.channels.cache.get(channel).send({ embeds: [mesaj] });
+                        .setTimestamp(Date.now())
+
+                        return await client.channels.cache.get(channel).send({ embeds: [mesaj] })
                 }
             }
-            await interaction.reply({ content: '**❌ You are not authorized to use this**' });
+            return await interaction.reply({ content: '**❌ You are not authorized to use this**' })
         } catch(err) {
             await interaction.reply({ content: '**❌ Oops something went wrong... check if my role is above all the other roles 🤔**' })
             console.log(err)

@@ -9,15 +9,15 @@ module.exports = {
     name: 'ready',
     description: 'on startup | expired punishments',
     on: true,
-    async execute (client, interaction) {
-        console.log('SNSY Bot online!');
+    async execute (client) {
+        console.log('SNSY Bot online!')
 
         await mongoose.connect(mongoPath, {
             keepAlive: true
         }).then(() => {
             console.log('Connected to the database!')
         }).catch((err) => {
-            console.log(err);
+            console.log(err)
         });
         let Guilds = client.guilds.cache.map(guild => guild.id)
         let number = 0
@@ -87,6 +87,8 @@ module.exports = {
                                 value: 'Mute expired',
                                 inline: true,
                             })
+                            .setTimestamp(Date.now())
+
                         await client.channels.cache.get(channel).send({embeds: [message]})
                     } catch (err) {
                         console.log(err)
@@ -153,6 +155,8 @@ module.exports = {
                                     value: 'Mute expired',
                                     inline: true,
                                 })
+                                .setTimestamp(Date.now())
+
                             await client.channels.cache.get(channel).send({ embeds: [message] })
                         } catch (err) {
                             console.log(err)

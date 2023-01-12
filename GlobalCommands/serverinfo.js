@@ -2,10 +2,10 @@ const { Client, CommandInteraction } = require('discord.js')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-    name: 'server-info',
-    description: 'displays informations about the server',
+    name: 'serverinfo',
+    description: 'Displays informations about the server',
     async execute(client, interaction) {
-        const { guild } = interaction;
+        const { guild } = interaction
         const mesaj = new MessageEmbed()
         .setColor("RED")
         .setAuthor({
@@ -43,9 +43,8 @@ module.exports = {
             name: '✨ | NITRO',
             value: `- Boosts: ${guild.premiumSubscriptionCount}`
         })
-        .setFooter({
-            text: `${new Date(interaction.createdTimestamp).toLocaleDateString()}`
-        })
-        await interaction.reply({embeds: [mesaj]});
+        .setTimestamp(Date.now())
+
+        return await interaction.reply({ embeds: [mesaj] })
     }
 }
