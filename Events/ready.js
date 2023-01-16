@@ -54,7 +54,6 @@ module.exports = {
                     await punishmentSchema.deleteMany(query)
 
                     try {
-                        let date = new Date()
                         const memberTarget = await guild.members.fetch(userID)
                         if (!memberTarget) {
                             return
@@ -64,9 +63,6 @@ module.exports = {
                         const message = new MessageEmbed()
                             .setTitle('UNMUTE')
                             .setColor('GREEN')
-                            .setFooter({
-                                text: `${date.toLocaleString()}`
-                            })
                             .addFields({
                                 name: 'ID',
                                 value: `${memberTarget.id}`,
@@ -89,7 +85,7 @@ module.exports = {
                             })
                             .setTimestamp(Date.now())
 
-                        await client.channels.cache.get(channel).send({embeds: [message]})
+                        await client.channels.cache.get(channel).send({ embeds: [message] })
                     } catch (err) {
                         console.log(err)
                     }
@@ -122,7 +118,6 @@ module.exports = {
                         await punishmentSchema.deleteMany(query)
 
                         try {
-                            let date = new Date()
                             const memberTarget = await guild.members.fetch(result.userID)
                             if (!memberTarget) {
                                 continue
@@ -132,9 +127,6 @@ module.exports = {
                             const message = new MessageEmbed()
                                 .setTitle('UNMUTE')
                                 .setColor('GREEN')
-                                .setFooter({
-                                    text: `${date.toLocaleDateString()}`
-                                })
                                 .addFields({
                                     name: 'ID',
                                     value: `${memberTarget.id}`,
