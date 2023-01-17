@@ -90,13 +90,14 @@ module.exports = {
 
                 guild.channels.cache.forEach(channel => {
                     if (channel.type === 'GUILD_TEXT') {
-                        try {
-                            channel.permissionOverwrites.create(role, {
-                                SEND_MESSAGES: false,
-                            })
-                        } catch (err) {
-                            console.log(err)
-                        }
+                        channel.permissionOverwrites.create(role, {
+                            SEND_MESSAGES: false,
+                        })
+                    }
+                    else {
+                        channel.permissionOverwrites.create(role, {
+                            SPEAK: false,
+                        })
                     }
                 })
             })
