@@ -155,7 +155,7 @@ module.exports = {
                         }
                     }
                 }
-                setTimeout(check, 1000 * 60)
+                setTimeout(check, 1000 * 30)
             }
             await check()
         }
