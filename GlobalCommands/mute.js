@@ -85,14 +85,16 @@ module.exports = {
                     }
                     let split = time.match(/\d+|\D+/g)
                     let time2 = parseInt(split[0])
-                    let type = split[1].toLowerCase();
-                    if (type === 'h'){
+                    //TODO: daca e nr nu merge toLowerCase()
+                    // let type = split[1].toLowerCase();
+                    let type = split[1]
+                    if (type === 'h' || type === 'H' || type === 'hour' || type === 'HOUR') {
                         time2 *= 60
                     }
-                    else if (type === 'd') {
+                    else if (type === 'd' || type === 'D' || type === 'days' || type === 'DAYS') {
                         time2 *= 60 * 24
                     }
-                    else if (type !== 'm') {
+                    else if (type !== 'm' || type !== 'M' || type !== 'minutes' || type !== 'MINUTES') {
                         return await interaction.reply('Invalid format.');
                     }
 
