@@ -14,18 +14,33 @@ module.exports = {
                 return
             }
             let muted = result.mutedRole
+
+            //Test for existance
+
+            //Muted role
+            let ok = interaction.guild.roles.cache.find(r => r.id === muted)
+            if (typeof ok === undefined) {
+                let schema = await guildCommandsSchema.findOne({
+                    guildID: guildId
+                })
+                schema.mutedRole = ''
+                await schema.save()
+                return
+            }
+
             if (channel.type === 'GUILD_TEXT') {
                 await channel.permissionOverwrites.create(muted, {
                     SEND_MESSAGES: false,
                 })
-            } else {
+            }
+            else {
                 await channel.permissionOverwrites.create(muted, {
                     SPEAK: false,
                 })
             }
         } catch (err) {
             console.log(err)
-            console.log(`Probably owner has unchecked the administrator perm or role doesn\'t exist`)
+            console.log(`Probably owner has unchecked the administrator perm`)
         }
     }
 }
