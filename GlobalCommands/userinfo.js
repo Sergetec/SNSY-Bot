@@ -14,20 +14,18 @@ module.exports = {
             .setColor("RED")
             .setAuthor({
                 name: user.tag,
-                iconURL: user.avatarURL({dynamic: true, size: 512})
+                iconURL: user.avatarURL({ dynamic: true, size: 512 })
             })
-            .setThumbnail(user.avatarURL({dynamic: true, size: 512}))
-            .addFields({
-                name: 'ID',
-                value: user.id
-            })
+            .setThumbnail(user.avatarURL({ dynamic: true, size: 512 }))
             .addFields({
                 name: 'Mention',
-                value: `<@${user.id}>`
+                value: `<@${user.id}>`,
+                inline: true,
             })
             .addFields({
                 name: 'Nickname',
-                value: member.nickname || user.tag.substring(0, user.tag.length - 5)
+                value: member.nickname || user.tag.substring(0, user.tag.length - 5),
+                inline: true,
             })
             .addFields({
                 name: 'Roles',
