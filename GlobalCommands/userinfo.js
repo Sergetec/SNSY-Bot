@@ -4,13 +4,20 @@ const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'userinfo',
     description: 'Displays informations about a user',
+    options: [
+        {
+            name: 'user',
+            type: 'USER',
+            description: 'The user to show information about',
+        },
+    ],
     async execute(client, interaction) {
         try {
             const {guild} = interaction
             const user = interaction.options.getUser('user') || interaction.user
             const member = guild.members.cache.get(user.id)
 
-            const mesaj = new MessageEmbed()
+            const message = new MessageEmbed()
             .setColor("RED")
             .setAuthor({
                 name: user.tag,
@@ -43,9 +50,9 @@ module.exports = {
             })
             .setTimestamp(Date.now())
 
-            return await interaction.reply({ embeds: [mesaj] })
+            return await interaction.reply({ embeds: [message] })
         } catch(err) {
-            await interaction.reply({ content: '**❌ Oops something went wrong... maybe the user is not on the server 🤔**' });
+            await interaction.reply({ content: '**❌ Oops something went wrong... maybe the user is not on the server 🤔**' })
             console.log(err)
         }
     }
