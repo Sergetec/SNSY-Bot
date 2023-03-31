@@ -1,8 +1,9 @@
 const guildCommandsSchema = require('../Models/guildCommands-schema')
+const { ChannelType } = require('discord.js')
 
 module.exports = {
     name: 'channelCreate',
-    description: 'when a channel is created',
+    description: 'When a channel is created',
     on: true,
     async execute(channel) {
         try {
@@ -18,7 +19,7 @@ module.exports = {
             //Test for existance
 
             //Muted role
-            let ok = interaction.guild.roles.cache.find(r => r.id === muted)
+            let ok = channel.guild.roles.cache.find(r => r.id === muted)
             if (typeof ok === undefined) {
                 let schema = await guildCommandsSchema.findOne({
                     guildID: guildId
@@ -28,14 +29,14 @@ module.exports = {
                 return
             }
 
-            if (channel.type === 'GUILD_TEXT') {
+            if (channel.type === ChannelType.GuildText) {
                 await channel.permissionOverwrites.create(muted, {
-                    SEND_MESSAGES: false,
+                    SendMessages: false,
                 })
             }
             else {
                 await channel.permissionOverwrites.create(muted, {
-                    SPEAK: false,
+                    Speak: false,
                 })
             }
         } catch (err) {

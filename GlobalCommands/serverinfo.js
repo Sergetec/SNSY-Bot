@@ -1,13 +1,12 @@
-const { Client, CommandInteraction } = require('discord.js')
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
     name: 'serverinfo',
     description: 'Displays informations about the server',
     async execute(client, interaction) {
         const { guild } = interaction
-        const message = new MessageEmbed()
-            .setColor("RED")
+        const message = new EmbedBuilder()
+            .setColor("Red")
             .setAuthor({
                 name: guild.name,
                 iconURL: guild.iconURL({ dynamic: true })
