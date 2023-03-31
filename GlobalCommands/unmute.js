@@ -106,7 +106,7 @@ module.exports = {
                         reason: unmuteReason,
                         type: 'unmute',
                     })
-                    arhiva.save()
+                    await arhiva.save()
 
                     //#SANCTIUNI
                     const message = new EmbedBuilder()
